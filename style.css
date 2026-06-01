@@ -1,0 +1,28 @@
+html, body {
+  background: transparent !important;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+#noteless-container {
+  background: transparent !important;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: auto; 
+  /* KHÔNG để drag ở đây vì nó sẽ chặn chuột toàn bộ */
+  -webkit-app-region: no-drag; 
+}
+
+canvas {
+  background: transparent !important;
+  display: block;
+  pointer-events: auto;
+  /* Chúng ta sẽ dùng phím Alt hoặc một vùng nhỏ để kéo máy sau */
+}

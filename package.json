@@ -1,0 +1,13 @@
+{
+  "name": "noteless",
+  "main": "index.html",
+  "window": {
+    "title": "Noteless",
+    "toolbar": false,
+    "frame": false, 
+    "transparent": true,
+    "as_desktop": false,
+    "resizable": true,
+    "icon": "assets/icon.ico"
+  }
+}
