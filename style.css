@@ -16,7 +16,6 @@ html, body {
   left: 0;
   z-index: 1;
   pointer-events: auto; 
-  /* KHÔNG để drag ở đây vì nó sẽ chặn chuột toàn bộ */
   -webkit-app-region: no-drag; 
 }
 
@@ -24,5 +23,4 @@ canvas {
   background: transparent !important;
   display: block;
   pointer-events: auto;
-  /* Chúng ta sẽ dùng phím Alt hoặc một vùng nhỏ để kéo máy sau */
 }
