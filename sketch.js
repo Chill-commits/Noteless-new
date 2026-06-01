@@ -1,11 +1,11 @@
-let userInput = localStorage.getItem('noteless_content') || "Chúc mừng bạn đã hoàn thành kỳ thi!"; 
+let userInput = localStorage.getItem('noteless_content'); 
 let cursorPos = userInput.length; 
 let scrollY = 0;
 let targetScrollY = 0;
 let padding = 50;
 let fontSize = 32;
 let isMaximized = false;
-let lastClickTime = 0; // Khai báo chuẩn biến hỗ trợ đếm click
+let lastClickTime = 0; 
 
 var nw = require('nw.gui'); 
 var win = nw.Window.get();
@@ -16,24 +16,24 @@ function setup() {
   pixelDensity(1);
   textFont('Cool Jazz');
   window.addEventListener('keydown', handleKeyDown);
+
   
-  // Lắng nghe sự kiện phóng to của cửa sổ để cập nhật lại Canvas
   win.on('maximize', () => { isMaximized = true; updateLayout(); });
   win.on('restore', () => { isMaximized = false; updateLayout(); });
 }
 
-// Hàm bổ trợ để ép Canvas cập nhật chuẩn xác
+
 function updateLayout() {
   setTimeout(() => {
     resizeCanvas(window.innerWidth, window.innerHeight);
-  }, 100); // Đợi 100ms để cửa sổ ổn định kích thước rồi mới tính lại tọa độ
+  }, 100); 
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-// Hàm matchClicks sửa lỗi ReferenceError triệt để
+
 function matchClicks(count) {
   let currentTime = millis();
   if (currentTime - lastClickTime < 300) { 
@@ -93,14 +93,14 @@ function handleKeyDown(e) {
 }
 
 function mousePressed() {
-  // Xử lý Double Click và Alt + Drag di chuyển cửa sổ
+  
   if (mouseButton === LEFT && matchClicks(2)) {
     isMaximized ? win.restore() : win.maximize();
     return;
   }
   if (keyIsDown(ALT)) { win.window.startDrag(); return; }
 
-  // Tính toán tọa độ chuột chuẩn xác dựa theo kích thước Canvas
+  
   let canvasElement = document.querySelector('canvas');
   if (!canvasElement) return;
   let rect = canvasElement.getBoundingClientRect();
@@ -111,7 +111,7 @@ function mousePressed() {
   let lineHeight = fontSize * 1.2;
   let textWidthLimit = width - (padding * 2);
   
-  // Đồng bộ hoàn toàn cách ngắt dòng bằng dấu cách giống hàm draw()
+ 
   let words = userInput.split(' ');
   let lines = [];
   let currentLine = "";
@@ -128,7 +128,7 @@ function mousePressed() {
 
   let clickedRow = floor(relativeY / lineHeight);
   
-  // Xác định vị trí con trỏ ký tự dựa trên hàng và cột đo đạc thực tế
+  
   if (clickedRow >= 0 && clickedRow < lines.length) {
     let line = lines[clickedRow];
     let accumulatedWidth = 0;
@@ -143,13 +143,13 @@ function mousePressed() {
     }
     cursorPos = getPosFromRowCol(lines, clickedRow, line.length);
   } else if (clickedRow >= lines.length) {
-    cursorPos = userInput.length; // Bấm dưới cùng văn bản thì nhảy về cuối
+    cursorPos = userInput.length; 
   } else {
-    cursorPos = 0; // Bấm trên cùng văn bản thì nhảy về đầu
+    cursorPos = 0; 
   }
 }
 
-// Hàm hỗ trợ tính toán vị trí con trỏ từ dòng và cột
+
 function getPosFromRowCol(lines, row, col) {
   let pos = 0;
   for (let i = 0; i < row; i++) pos += lines[i].length + 1;
@@ -165,7 +165,7 @@ function mouseWheel(event) {
   return false;
 }
 
-// Lắng nghe sự kiện Blur cửa sổ (Được tách độc lập ở ngoài rìa file)
+
 win.on('blur', function() {
   document.body.style.background = "transparent"; 
   let container = document.getElementById('noteless-container');
